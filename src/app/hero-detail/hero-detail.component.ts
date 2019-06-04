@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Hero }         from '../hero';
 import { HeroService }  from '../hero.service';
+import { debounce } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hero-detail',
@@ -34,7 +35,27 @@ export class HeroDetailComponent implements OnInit {
   }
 
  save(): void {
+   debounce(() => {
     this.heroService.updateHero(this.hero)
-      .subscribe(() => this.goBack());
+    .subscribe(() => this.goBack());
+   }, 250 , false)();
+   
   }
+
+ debounce (func, wait, immediate) {
+    var timeout;
+    return function(){
+      var context= this, args= arguments;
+      var later= function (){
+        timeout= null;
+        if(!immediate) func.apply(context,args);
+      };
+      var callNow= immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later,wait);
+      if(callNow) func.apply(context,args);
+
+    };
+    
+  };
 }

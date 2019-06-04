@@ -1,12 +1,16 @@
 import { HeroesComponent } from "./heroes.component";
 import { of } from "rxjs";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA, Component, Input } from "@angular/core";
+import { NO_ERRORS_SCHEMA, Component, Input, Directive } from "@angular/core";
 import { HeroService } from "../hero.service";
 import { Hero } from "../hero";
 import { By } from "@angular/platform-browser";
 import { HeroComponent } from "../hero/hero.component";
 import { by } from "protractor";
+
+
+
+
 
 describe('HeroesComponent (Deep test)', () => {
     let component: HeroesComponent;

@@ -4,7 +4,7 @@ import { HeroService } from "../hero.service";
 import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs";
 import { FormsModule } from "@angular/forms";
-
+import { RouterTestingModule } from '@angular/router/testing';
 describe ('HeroDetailComponent',() =>{
     let mockActivatedRoute, mockHeroService, mockLocation;
     let fixture: ComponentFixture<HeroDetailComponent>;
@@ -16,7 +16,7 @@ describe ('HeroDetailComponent',() =>{
         mockLocation = jasmine.createSpyObj(['back']);
 
         TestBed.configureTestingModule({
-            imports:[FormsModule],
+            imports:[FormsModule,RouterTestingModule],
             declarations :[HeroDetailComponent],
             providers: [
                 { provide: HeroService, useValue: mockActivatedRoute },
@@ -36,4 +36,18 @@ describe ('HeroDetailComponent',() =>{
 
     //     expect(text).toContain('SPIDER MAN');
     // })
+
+      it('should call updateHero when save is called',() => {
+
+        mockHeroService.updateHero.and.returnValue (of ({}));
+
+        fixture.detectChanges();
+
+        fixture.componentInstance.save();
+
+        expect(mockHeroService.updateHero).toHaveBeenCalled();
+        // const text= fixture.nativeElement.querySelecter('h2').textContent;
+
+        // expect(text).toContain('SPIDER MAN');
+    })
 })
